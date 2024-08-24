@@ -1,15 +1,18 @@
 import java.util.*;
 
 public class MetodosILS {
-	private MochilaILS mochila;
+	private Mochila mochila;
+	private int criterioDeParada;
     private Random random = new Random();
     
-    public MetodosILS(MochilaILS mochila) {
+    // Construtor da classe
+    public MetodosILS(Mochila mochila, int criterioDeParada) {
     	this.mochila = mochila;
+    	this.criterioDeParada = criterioDeParada;
     }
     
-	// Função de avaliação (fitness)
-    private int avaliar(int[] solucao) {
+	// Função de avaliação da mochila
+    private int verificarMochila(int[] solucao) {
         int pesoTotal = 0;
         int valorTotal = 0;
         
@@ -25,13 +28,13 @@ public class MetodosILS {
     // Busca local: tenta melhorar a solução alterando um item de cada vez
     private int[] buscaLocal(int[] solucao) {
         int[] melhorSolucao = Arrays.copyOf(solucao, solucao.length);
-        int melhorValor = avaliar(melhorSolucao);
+        int melhorValor = verificarMochila(melhorSolucao);
         for (int i = 0; i < this.mochila.getMaxBuscaLocal(); i++) {
             int[] novaSolucao = Arrays.copyOf(melhorSolucao, melhorSolucao.length);
             int indice = random.nextInt(novaSolucao.length);
             novaSolucao[indice] = 1 - novaSolucao[indice]; // Alterna o valor de 0 para 1 ou de 1 para 0
 
-            int novoValor = avaliar(novaSolucao);
+            int novoValor = verificarMochila(novaSolucao);
             if (novoValor > melhorValor) {
                 melhorSolucao = novaSolucao;
                 melhorValor = novoValor;
@@ -54,15 +57,17 @@ public class MetodosILS {
     }
 
     // ILS: combina a busca local e a perturbação
-    public int[] buscaLocalIterativa() {
+    public int[] encontrarSolucao() {
         int[] solucaoAtual = new int[this.mochila.getItens().size()];
         int[] melhorSolucao = buscaLocal(solucaoAtual);
 
-        for (int i = 0; i < this.mochila.getMaxIteracoes(); i++) {
+        // Criterio de parada
+        for (int i = 0; i < criterioDeParada; i++) {
             int[] solucaoPerturbada = perturbacao(melhorSolucao);
             int[] novaSolucao = buscaLocal(solucaoPerturbada);
 
-            if (avaliar(novaSolucao) > avaliar(melhorSolucao)) {
+            // Criterio de aceitação
+            if (verificarMochila(novaSolucao) > verificarMochila(melhorSolucao)) {
                 melhorSolucao = novaSolucao;
             }
         }
@@ -83,6 +88,7 @@ public class MetodosILS {
                 valorTotal += item.valor;
             }
         }
+        
         System.out.println("Peso total: " + pesoTotal);
         System.out.println("Valor total: " + valorTotal);
     }

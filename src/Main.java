@@ -24,9 +24,8 @@ public class Main {
 
         int capacidade = 5;
 
-        MochilaILS mochila = new MochilaILS(itens, capacidade);
-        //int[] solucao = mochila.buscaLocalIterativa();
-        MetodosILS ils = new MetodosILS(mochila);
-        ils.exibirSolucao(ils.buscaLocalIterativa());
+        Mochila mochila = new Mochila(itens, capacidade);
+        MetodosILS ils = new MetodosILS(mochila, 100);
+        ils.exibirSolucao(ils.encontrarSolucao());
     }
 }
