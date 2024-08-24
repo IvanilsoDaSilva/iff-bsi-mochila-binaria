@@ -2,9 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-	// Exemplo de uso
     public static void main(String[] args) {
-        // Definição dos itens
+        // Lista de itens com nome, peso e valor
         List<Item> itens = new ArrayList<>();
         itens.add(new Item("Garfo", 1, 2));
         itens.add(new Item("Cálice", 3, 6));
@@ -21,11 +20,16 @@ public class Main {
         itens.add(new Item("Sapato", 4, 7));
         itens.add(new Item("Caderno", 2, 3));
         itens.add(new Item("Fone de Ouvido", 1, 6));
-
+        // Capacidade maxima da mochila
         int capacidade = 5;
+        // Criterio de parada do problema (Nesse caso, as vezes que vai rodar o algoritmo)
+        int criterioDeParada = 14;
 
+        // Iniciação da mochila com os itens
         Mochila mochila = new Mochila(itens, capacidade);
-        MetodosILS ils = new MetodosILS(mochila, 100);
+        // Iniciação do ils com a mochila e o criterio de parada
+        MetodosILS ils = new MetodosILS(mochila, criterioDeParada);
+        // Encontrar e exibir a solução
         ils.exibirSolucao(ils.encontrarSolucao());
     }
 }
