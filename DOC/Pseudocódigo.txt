@@ -1,40 +1,135 @@
-INICIO
-    // Criação de uma lista de itens com nome, peso e valor
-    LISTA itens = [
-        ITEM("Garfo", 1, 2),
-        ITEM("Cálice", 3, 6),
-        ITEM("Livro", 4, 8),
-        ITEM("Lanterna", 2, 5),
-        ITEM("Chave", 1, 3),
-        ITEM("Bolsa", 5, 9),
-        ITEM("Celular", 1, 7),
-        ITEM("Carteira", 1, 4),
-        ITEM("Relógio", 2, 6),
-        ITEM("Óculos", 1, 5),
-        ITEM("Faca", 2, 4),
-        ITEM("Toalha", 3, 5),
-        ITEM("Sapato", 4, 7),
-        ITEM("Caderno", 2, 3),
-        ITEM("Fone de Ouvido", 1, 6)
-    ]
+INÍCIO
 
-    // Definir a capacidade máxima da mochila
-    CAPACIDADE mochilaCapacidade = 5
+    // Definir a classe Item com atributos nome, peso e valor
+    CLASSE Item
+        ATRIBUTOS:
+            nome
+            peso
+            valor
+        MÉTODO CONSTRUTOR:
+            Item(nome, peso, valor)
+    FIM CLASSE
 
-    // Definir o critério de parada do ILS (número de iterações)
-    CRITERIO_DE_PARADA_ILS = 14
+    // Definir a classe MochilaILS para implementar o algoritmo ILS
+    CLASSE MochilaILS
+        ATRIBUTOS:
+            listaDeItens
+            capacidade
+            maxIteracoes = 1000
+            maxBuscaLocal = 100
+            random = GERAR_NUMERO_ALEATÓRIO
 
-    // Definir o critério de parada da busca local
-    CRITERIO_DE_PARADA_BUSCA_LOCAL = 100
+        MÉTODO CONSTRUTOR:
+            MochilaILS(listaDeItens, capacidade)
 
-    // Inicializar a mochila com os itens e a capacidade
-    MOCHILA mochila = CRIAR_MOCHILA(itens, mochilaCapacidade)
+        // Função de avaliação: calcula o valor total da solução
+        MÉTODO avaliar(solucao)
+            pesoTotal = 0
+            valorTotal = 0
+            PARA i = 0 ATÉ comprimento(solucao) FAÇA
+                SE solucao[i] == 1 ENTÃO
+                    pesoTotal += peso do item[i]
+                    valorTotal += valor do item[i]
+                FIM SE
+            FIM PARA
+            SE pesoTotal <= capacidade ENTÃO
+                RETORNAR valorTotal
+            SENÃO
+                RETORNAR 0
+            FIM SE
+        FIM MÉTODO
 
-    // Inicializar o método de busca local (ILS) com a mochila e os critérios de parada
-    METODOS_ILS ils = CRIAR_METODOS_ILS(mochila, CRITERIO_DE_PARADA_ILS, CRITERIO_DE_PARADA_BUSCA_LOCAL)
+        // Busca local: tenta melhorar a solução atual
+        MÉTODO buscaLocal(solucao)
+            melhorSolucao = COPIAR(solucao)
+            melhorValor = avaliar(melhorSolucao)
+            PARA i = 0 ATÉ maxBuscaLocal FAÇA
+                novaSolucao = COPIAR(melhorSolucao)
+                alterarIndice = GERAR_NUMERO_ALEATÓRIO(comprimento(novaSolucao))
+                novaSolucao[alterarIndice] = 1 - novaSolucao[alterarIndice]
+                novoValor = avaliar(novaSolucao)
+                SE novoValor > melhorValor ENTÃO
+                    melhorSolucao = novaSolucao
+                    melhorValor = novoValor
+                FIM SE
+            FIM PARA
+            RETORNAR melhorSolucao
+        FIM MÉTODO
 
-    // Encontrar e exibir a solução
-    SOLUCAO = ils.ENCONTRAR_SOLUCAO()
-    ils.EXIBIR_SOLUCAO(SOLUCAO)
+        // Perturbação: modifica a solução atual para escapar de ótimos locais
+        MÉTODO perturbacao(solucao)
+            solucaoPerturbada = COPIAR(solucao)
+            tamanhoPerturbacao = GERAR_NUMERO_ALEATÓRIO(comprimento(solucao) / 2) + 1
+            PARA i = 0 ATÉ tamanhoPerturbacao FAÇA
+                alterarIndice = GERAR_NUMERO_ALEATÓRIO(comprimento(solucaoPerturbada))
+                solucaoPerturbada[alterarIndice] = 1 - solucaoPerturbada[alterarIndice]
+            FIM PARA
+            RETORNAR solucaoPerturbada
+        FIM MÉTODO
+
+        // ILS: combina a busca local e a perturbação para encontrar a melhor solução
+        MÉTODO buscaLocalIterada()
+            solucaoAtual = NOVA_SOLUCAO_INICIAL(comprimento(listaDeItens))
+            melhorSolucao = buscaLocal(solucaoAtual)
+            PARA i = 0 ATÉ maxIteracoes FAÇA
+                solucaoPerturbada = perturbacao(melhorSolucao)
+                novaSolucao = buscaLocal(solucaoPerturbada)
+                SE avaliar(novaSolucao) > avaliar(melhorSolucao) ENTÃO
+                    melhorSolucao = novaSolucao
+                FIM SE
+            FIM PARA
+            RETORNAR melhorSolucao
+        FIM MÉTODO
+
+        // Exibir a solução final
+        MÉTODO exibirSolucao(solucao)
+            pesoTotal = 0
+            valorTotal = 0
+            EXIBIR "Itens na mochila:"
+            PARA i = 0 ATÉ comprimento(solucao) FAÇA
+                SE solucao[i] == 1 ENTÃO
+                    EXIBIR nome, peso, valor do item[i]
+                    pesoTotal += peso do item[i]
+                    valorTotal += valor do item[i]
+                FIM SE
+            FIM PARA
+            EXIBIR "Peso total:", pesoTotal
+            EXIBIR "Valor total:", valorTotal
+        FIM MÉTODO
+    FIM CLASSE
+
+    // Exemplo de uso
+    INÍCIO_MAIN
+
+        // Definir a lista de itens
+        LISTA itens = [
+            ITEM("Garfo", 1, 2),
+            ITEM("Cálice", 3, 6),
+            ITEM("Livro", 4, 8),
+            ITEM("Lanterna", 2, 5),
+            ITEM("Chave", 1, 3),
+            ITEM("Bolsa", 5, 9),
+            ITEM("Celular", 1, 7),
+            ITEM("Carteira", 1, 4),
+            ITEM("Relógio", 2, 6),
+            ITEM("Óculos", 1, 5),
+            ITEM("Faca", 2, 4),
+            ITEM("Toalha", 3, 5),
+            ITEM("Sapato", 4, 7),
+            ITEM("Caderno", 2, 3),
+            ITEM("Fone de Ouvido", 1, 6)
+        ]
+
+        // Definir a capacidade da mochila
+        capacidade = 5
+
+        // Criar instância da classe MochilaILS e encontrar a melhor solução
+        MochilaILS mochilaILS = NOVA_INSTANCIA_MochilaILS(itens, capacidade)
+        solucaoFinal = mochilaILS.buscaLocalIterada()
+
+        // Exibir a solução final
+        mochilaILS.exibirSolucao(solucaoFinal)
+
+    FIM_MAIN
 
 FIM
