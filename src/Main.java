@@ -20,15 +20,15 @@ public class Main {
         itens.add(new Item("Sapato", 4, 7));
         itens.add(new Item("Caderno", 2, 3));
         itens.add(new Item("Fone de Ouvido", 1, 6));
-        int capacidade = 6;
+        int pesoMaximo = 4;
         
         // Parâmetros do ILS
-        int criterioDeParadaDoILS = 100;
+        int criterioDeParadaDoILS = 50;
         int criterioDeParadaDaBuscaLocal = 100;
         int tamanhoMaximoPertubação = 8;
 
         // Iniciação da mochila com os itens
-        Mochila mochila = new Mochila(itens, capacidade);
+        Mochila mochila = new Mochila(itens, pesoMaximo);
         // Iniciação do ils com a mochila e o criterio de parada
         MetodosILS ils = new MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPertubação);
         // Encontrar e exibir a solução

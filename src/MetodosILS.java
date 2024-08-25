@@ -112,8 +112,11 @@ public class MetodosILS {
                 valorTotal += item.valor;
             }
         }
-        
-        System.out.println("Peso total: " + pesoTotal);
-        System.out.println("Valor total: " + valorTotal);
+        System.out.println();
+        System.out.println("Peso: " + pesoTotal);
+        System.out.println("Valor: " + valorTotal);
+        System.out.println("Criterio de parada da pertubação: " + criterioDeParadaDoILS);
+        System.out.println("Criterio de parada da busca local: " + criterioDeParadaDaBuscaLocal);
+        System.out.println("Tamanho maximo da pertubação: " + tamanhoMaximoPertubação);
     }
 }
