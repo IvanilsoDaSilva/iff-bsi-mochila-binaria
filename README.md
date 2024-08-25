@@ -16,7 +16,7 @@
 
 Pseudocódigo
 
-```
+```text
 INÍCIO
     // Classe Item para representar um item com nome, peso e valor
     CLASSE Item
