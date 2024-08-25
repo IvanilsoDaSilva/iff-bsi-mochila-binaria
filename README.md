@@ -14,7 +14,7 @@
 
 <h2 align="right">1.1. INTRODUCTION 📰</h2>
 
-Pseudocódigo simples
+### Pseudocódigo simples
 
 ```
 INÍCIO
@@ -57,7 +57,7 @@ INÍCIO
 FIM
 ```
 
-Pseudocódigo completo
+### Pseudocódigo completo
 
 ```text
 INÍCIO
@@ -209,8 +209,9 @@ INÍCIO
     FIM_MAIN
 
 FIM
-
 ```
+
+### Explicação
 
 - Classe Item: Representa um item com atributos nome, peso, e valor.
 - Classe Mochila: Contém a lista de itens e a capacidade da mochila, além de métodos para acessar essas informações.
@@ -221,6 +222,38 @@ FIM
   - encontrarSolucao: Aplica a combinação de busca local e perturbação para encontrar a melhor solução.
   - exibirSolucao: Exibe os itens selecionados na mochila, juntamente com o peso e o valor total.
 - Função INÍCIO_MAIN: Cria a lista de itens, define a capacidade da mochila, os critérios de parada, e executa o algoritmo ILS, exibindo a solução final.
+
+### Melhores solução
+
+```
+Itens na mochila:
+Chave (Peso: 1, Valor: 3)
+Celular (Peso: 1, Valor: 7)
+Carteira (Peso: 1, Valor: 4)
+Óculos (Peso: 1, Valor: 5)
+Fone de Ouvido (Peso: 1, Valor: 6)
+
+Peso: 5
+Valor: 25
+Criterio de parada da pertubação: 100
+Criterio de parada da busca local: 100
+Tamanho maximo da pertubação: 8
+```
+
+```
+Itens na mochila:
+Celular (Peso: 1, Valor: 7)
+Carteira (Peso: 1, Valor: 4)
+Relógio (Peso: 2, Valor: 6)
+Óculos (Peso: 1, Valor: 5)
+Fone de Ouvido (Peso: 1, Valor: 6)
+
+Peso: 6
+Valor: 28
+Criterio de parada da pertubação: 50
+Criterio de parada da busca local: 100
+Tamanho maximo da pertubação: 8
+```
 
 <h2 align="right">1.2. DESCRIPTION 📝</h2>
 
