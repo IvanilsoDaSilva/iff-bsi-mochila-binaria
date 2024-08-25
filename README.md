@@ -14,7 +14,50 @@
 
 <h2 align="right">1.1. INTRODUCTION 📰</h2>
 
-Pseudocódigo
+Pseudocódigo simples
+
+```
+INÍCIO
+    CLASSE Item
+        ATRIBUTOS: nome, peso, valor
+        MÉTODO CONSTRUTOR: Item(nome, peso, valor)
+    FIM CLASSE
+
+    CLASSE Mochila
+        ATRIBUTOS: listaDeItens, capacidade
+        MÉTODOS: getItens(), getCapacidade()
+        MÉTODO CONSTRUTOR: Mochila(listaDeItens, capacidade)
+    FIM CLASSE
+
+    CLASSE MetodosILS
+        ATRIBUTOS:
+            mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPerturbacao, random
+        MÉTODO CONSTRUTOR: MetodosILS(
+            mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPerturbacao
+        )
+        MÉTODO verificarMochila(solucao) FIM MÉTODO
+        MÉTODO buscaLocal(solucao) FIM MÉTODO
+        MÉTODO perturbacao(solucao) FIM MÉTODO
+        MÉTODO encontrarSolucao() FIM MÉTODO
+        MÉTODO exibirSolucao(solucao) FIM MÉTODO
+    FIM CLASSE
+
+    INÍCIO_MAIN
+        LISTA itens = NOVA_LISTA()
+        capacidade = 6
+        criterioDeParadaDoILS = 100
+        criterioDeParadaDaBuscaLocal = 100
+        tamanhoMaximoPerturbacao = 8
+        mochila = NOVA_INSTANCIA_Mochila(itens, capacidade)
+        ils = NOVA_INSTANCIA_MetodosILS(
+            mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPerturbacao
+        )
+        ils.exibirSolucao(ils.encontrarSolucao())
+    FIM_MAIN
+FIM
+```
+
+Pseudocódigo completo
 
 ```text
 INÍCIO
