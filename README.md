@@ -165,6 +165,16 @@ INÍCIO
 FIM
 ```
 
+- Classe Item: Representa um item com atributos nome, peso, e valor.
+- Classe Mochila: Contém a lista de itens e a capacidade da mochila, além de métodos para acessar essas informações.
+- Classe MetodosILS: Implementa o algoritmo Iterated Local Search (ILS) com os métodos principais:
+  - verificarMochila: Avalia o valor da solução considerando as restrições de capacidade.
+  - buscaLocal: Melhora a solução atual alterando os itens na mochila.
+  - perturbacao: Introduz mudanças na solução para evitar ótimos locais.
+  - encontrarSolucao: Aplica a combinação de busca local e perturbação para encontrar a melhor solução.
+  - exibirSolucao: Exibe os itens selecionados na mochila, juntamente com o peso e o valor total.
+- Função INÍCIO_MAIN: Cria a lista de itens, define a capacidade da mochila, os critérios de parada, e executa o algoritmo ILS, exibindo a solução final.
+
 <h2 align="right">1.2. DESCRIPTION 📝</h2>
 
 Este repositório contém um estudo sobre o problema da mochila utilizando a Metaheurística de Busca Local Iterada (ILS), desenvolvido durante o curso de Bacharelado em Sistemas de Informação no Instituto Federal Fluminense.
