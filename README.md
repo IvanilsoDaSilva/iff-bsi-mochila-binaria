@@ -223,8 +223,46 @@ FIM
   - exibirSolucao: Exibe os itens selecionados na mochila, juntamente com o peso e o valor total.
 - Função INÍCIO_MAIN: Cria a lista de itens, define a capacidade da mochila, os critérios de parada, e executa o algoritmo ILS, exibindo a solução final.
 
-### Melhores solução
+### Entrada 
 
+| Nome              | Peso | Valor |
+|-------------------|------|-------|
+| Garfo             | 1    | 2     |
+| Cálice            | 3    | 6     |
+| Livro             | 4    | 8     |
+| Lanterna          | 2    | 5     |
+| Chave             | 1    | 3     |
+| Bolsa             | 5    | 9     |
+| Celular           | 1    | 7     |
+| Carteira          | 1    | 4     |
+| Relógio           | 2    | 6     |
+| Óculos            | 1    | 5     |
+| Faca              | 2    | 4     |
+| Toalha            | 3    | 5     |
+| Sapato            | 4    | 7     |
+| Caderno           | 2    | 3     |
+| Fone de Ouvido    | 1    | 6     |
+
+
+### Melhores soluções
+
+Peso máximo: 4
+```
+Itens na mochila:
+Celular (Peso: 1, Valor: 7)
+Carteira (Peso: 1, Valor: 4)
+Óculos (Peso: 1, Valor: 5)
+Fone de Ouvido (Peso: 1, Valor: 6)
+
+Peso: 4
+Valor: 22
+Criterio de parada da pertubação: 50
+Criterio de parada da busca local: 100
+Tamanho maximo da pertubação: 8
+
+```
+
+Peso máximo: 5
 ```
 Itens na mochila:
 Chave (Peso: 1, Valor: 3)
@@ -240,6 +278,7 @@ Criterio de parada da busca local: 100
 Tamanho maximo da pertubação: 8
 ```
 
+Peso máximo: 6
 ```
 Itens na mochila:
 Celular (Peso: 1, Valor: 7)
