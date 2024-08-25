@@ -62,7 +62,6 @@ FIM
 ```text
 INÍCIO
 
-    // Classe Item para representar um item com nome, peso e valor
     CLASSE Item
         ATRIBUTOS:
             nome
@@ -72,7 +71,6 @@ INÍCIO
             Item(nome, peso, valor)
     FIM CLASSE
 
-    // Classe Mochila para representar a mochila com uma lista de itens e sua capacidade
     CLASSE Mochila
         ATRIBUTOS:
             listaDeItens
@@ -84,19 +82,17 @@ INÍCIO
             Mochila(listaDeItens, capacidade)
     FIM CLASSE
 
-    // Classe MetodosILS para implementar o algoritmo ILS
     CLASSE MetodosILS
         ATRIBUTOS:
             mochila
             criterioDeParadaDoILS
             criterioDeParadaDaBuscaLocal
-            tamanhoMaximoPerturbacao
+            tamanhoMaximoPertubação
             random = GERAR_NUMERO_ALEATORIO
-
-        MÉTODO CONSTRUTOR:
-            MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPerturbacao)
         
-        // Método para verificar a solução na mochila
+        MÉTODO CONSTRUTOR:
+            MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPertubação)
+        
         MÉTODO verificarMochila(solucao)
             pesoTotal = 0
             valorTotal = 0
@@ -113,14 +109,13 @@ INÍCIO
             FIM SE
         FIM MÉTODO
 
-        // Método de busca local para melhorar a solução
         MÉTODO buscaLocal(solucao)
             melhorSolucao = COPIAR(solucao)
             melhorValor = verificarMochila(melhorSolucao)
             PARA i = 0 ATÉ criterioDeParadaDaBuscaLocal FAÇA
                 novaSolucao = COPIAR(melhorSolucao)
                 indice = GERAR_NUMERO_ALEATORIO(tamanho(novaSolucao))
-                novaSolucao[indice] = 1 - novaSolucao[indice] // Alternar valor de 0 para 1 ou de 1 para 0
+                novaSolucao[indice] = 1 - novaSolucao[indice]
                 novoValor = verificarMochila(novaSolucao)
                 SE novoValor > melhorValor ENTÃO
                     melhorSolucao = novaSolucao
@@ -130,10 +125,9 @@ INÍCIO
             RETORNAR melhorSolucao
         FIM MÉTODO
 
-        // Método de perturbação para escapar de ótimos locais
         MÉTODO perturbacao(solucao)
             solucaoPerturbada = COPIAR(solucao)
-            tamanhoPerturbacao = GERAR_NUMERO_ALEATORIO(tamanhoMaximoPerturbacao) + 1
+            tamanhoPerturbacao = GERAR_NUMERO_ALEATORIO(tamanhoMaximoPertubação) + 1
             PARA i = 0 ATÉ tamanhoPerturbacao FAÇA
                 indice = GERAR_NUMERO_ALEATORIO(tamanho(solucaoPerturbada))
                 solucaoPerturbada[indice] = 1 - solucaoPerturbada[indice]
@@ -141,7 +135,6 @@ INÍCIO
             RETORNAR solucaoPerturbada
         FIM MÉTODO
 
-        // Método ILS que combina busca local e perturbação
         MÉTODO encontrarSolucao()
             solucaoAtual = NOVA_SOLUCAO(tamanho(mochila.getItens()))
             melhorSolucao = buscaLocal(solucaoAtual)
@@ -155,7 +148,6 @@ INÍCIO
             RETORNAR melhorSolucao
         FIM MÉTODO
 
-        // Método para exibir a solução final
         MÉTODO exibirSolucao(solucao)
             pesoTotal = 0
             valorTotal = 0
@@ -168,14 +160,15 @@ INÍCIO
                     valorTotal += item.valor
                 FIM SE
             FIM PARA
-            EXIBIR "Peso total: " + pesoTotal
-            EXIBIR "Valor total: " + valorTotal
+            EXIBIR "Peso: " + pesoTotal
+            EXIBIR "Valor: " + valorTotal
+            EXIBIR "Criterio de parada da pertubação: " + criterioDeParadaDoILS
+            EXIBIR "Criterio de parada da busca local: " + criterioDeParadaDaBuscaLocal
+            EXIBIR "Tamanho maximo da pertubação: " + tamanhoMaximoPertubação
         FIM MÉTODO
     FIM CLASSE
 
-    // Função principal para executar o programa
     INÍCIO_MAIN
-        // Criação da lista de itens
         LISTA itens = NOVA_LISTA()
         itens.ADICIONAR(Item("Garfo", 1, 2))
         itens.ADICIONAR(Item("Cálice", 3, 6))
@@ -193,17 +186,14 @@ INÍCIO
         itens.ADICIONAR(Item("Caderno", 2, 3))
         itens.ADICIONAR(Item("Fone de Ouvido", 1, 6))
 
-        // Definição da capacidade da mochila e critérios de parada
-        capacidade = 6
+        capacidade = 5
         criterioDeParadaDoILS = 100
         criterioDeParadaDaBuscaLocal = 100
-        tamanhoMaximoPerturbacao = 8
+        tamanhoMaximoPertubação = 8
 
-        // Criação da instância da Mochila e do MetodosILS
         mochila = NOVA_INSTANCIA_Mochila(itens, capacidade)
-        ils = NOVA_INSTANCIA_MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPerturbacao)
+        ils = NOVA_INSTANCIA_MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPertubação)
 
-        // Encontrar e exibir a solução final
         solucaoFinal = ils.encontrarSolucao()
         ils.exibirSolucao(solucaoFinal)
     FIM_MAIN
