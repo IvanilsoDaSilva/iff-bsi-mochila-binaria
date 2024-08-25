@@ -2,13 +2,17 @@ import java.util.*;
 
 public class MetodosILS {
 	private Mochila mochila;
-	private int criterioDeParada;
+	private int criterioDeParadaDoILS;
+	private int criterioDeParadaDaBuscaLocal;
+	private int tamanhoMaximoPertubação;
     private Random random = new Random();
     
     // Construtor da classe
-    public MetodosILS(Mochila mochila, int criterioDeParada) {
+    public MetodosILS(Mochila mochila, int criterioDeParadaDoILS, int criterioDeParadaDaBuscaLocal, int tamanhoMaximoPertubação) {
     	this.mochila = mochila;
-    	this.criterioDeParada = criterioDeParada;
+    	this.criterioDeParadaDoILS = criterioDeParadaDoILS;
+    	this.criterioDeParadaDaBuscaLocal = criterioDeParadaDaBuscaLocal;
+    	this.tamanhoMaximoPertubação = tamanhoMaximoPertubação;
     }
     
 	// Função de avaliação da mochila
@@ -29,7 +33,8 @@ public class MetodosILS {
     private int[] buscaLocal(int[] solucao) {
         int[] melhorSolucao = Arrays.copyOf(solucao, solucao.length);
         int melhorValor = verificarMochila(melhorSolucao);
-        for (int i = 0; i < this.mochila.getMaxBuscaLocal(); i++) {
+        
+        for (int i = 0; i < criterioDeParadaDaBuscaLocal; i++) {
             int[] novaSolucao = Arrays.copyOf(melhorSolucao, melhorSolucao.length);
             int indice = random.nextInt(novaSolucao.length);
             novaSolucao[indice] = 1 - novaSolucao[indice]; // Alterna o valor de 0 para 1 ou de 1 para 0
@@ -46,9 +51,19 @@ public class MetodosILS {
     // Perturbação: modifica a solução atual para escapar de ótimos locais
     private int[] perturbacao(int[] solucao) {
         int[] solucaoPerturbada = Arrays.copyOf(solucao, solucao.length);
-        int tamanhoPerturbacao = random.nextInt(solucaoPerturbada.length / 2) + 1;
+        /*
+         * Define quantos elementos da solução serão 
+         * alterados (perturbados) aleatoriamente.
+         * Neste caso de pelo menos um até a metade de 
+         * elementos da solução
+         */
+        int tamanhoPerturbacao = random.nextInt(tamanhoMaximoPertubação) + 1;
 
         for (int i = 0; i < tamanhoPerturbacao; i++) {
+        	/*
+        	 * Inverte todos os elementos na faixa do tamanho da
+        	 * pertubação
+        	 */
             int indice = random.nextInt(solucaoPerturbada.length);
             solucaoPerturbada[indice] = 1 - solucaoPerturbada[indice];
         }
@@ -58,11 +73,20 @@ public class MetodosILS {
 
     // ILS: combina a busca local e a perturbação
     public int[] encontrarSolucao() {
+    	/*
+    	 * Array com base na lista de itens que podem entrar na mochila
+    	 * 0 significa que o item não esta na mochila
+    	 * 1 significa que o item esta na mochila
+    	 */
         int[] solucaoAtual = new int[this.mochila.getItens().size()];
         int[] melhorSolucao = buscaLocal(solucaoAtual);
 
-        // Criterio de parada
-        for (int i = 0; i < criterioDeParada; i++) {
+        /*
+         * Repete a pertubação e busca local ate atender
+         * o criterio de parada da ILS, nesse caso uma quantidade
+         * de interações
+         */
+        for (int i = 0; i < criterioDeParadaDoILS; i++) {
             int[] solucaoPerturbada = perturbacao(melhorSolucao);
             int[] novaSolucao = buscaLocal(solucaoPerturbada);
 

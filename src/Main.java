@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         // Lista de itens com nome, peso e valor
         List<Item> itens = new ArrayList<>();
-        itens.add(new Item("Garfo", 1, 2));
+        itens.add(new Item("Garfo", 1, 2)); 
         itens.add(new Item("Cálice", 3, 6));
         itens.add(new Item("Livro", 4, 8));
         itens.add(new Item("Lanterna", 2, 5));
@@ -20,15 +20,17 @@ public class Main {
         itens.add(new Item("Sapato", 4, 7));
         itens.add(new Item("Caderno", 2, 3));
         itens.add(new Item("Fone de Ouvido", 1, 6));
-        // Capacidade maxima da mochila
-        int capacidade = 5;
-        // Criterio de parada do problema (Nesse caso, as vezes que vai rodar o algoritmo)
-        int criterioDeParada = 14;
+        int capacidade = 6;
+        
+        // Parâmetros do ILS
+        int criterioDeParadaDoILS = 100;
+        int criterioDeParadaDaBuscaLocal = 100;
+        int tamanhoMaximoPertubação = 8;
 
         // Iniciação da mochila com os itens
         Mochila mochila = new Mochila(itens, capacidade);
         // Iniciação do ils com a mochila e o criterio de parada
-        MetodosILS ils = new MetodosILS(mochila, criterioDeParada);
+        MetodosILS ils = new MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPertubação);
         // Encontrar e exibir a solução
         ils.exibirSolucao(ils.encontrarSolucao());
     }

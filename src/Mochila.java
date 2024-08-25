@@ -4,9 +4,6 @@ public class Mochila {
     // Lista de itens disponíveis
     private List<Item> itens;
     private int capacidade;
-
-    // Parâmetros do ILS
-    private int maxBuscaLocal = 100;
     
     // Métodos de acesso
     public List<Item> getItens() {
@@ -15,10 +12,6 @@ public class Mochila {
     
     public int getCapacidade() {
     	return this.capacidade;
-    }
-    
-    public int getMaxBuscaLocal() {
-    	return this.maxBuscaLocal;
     }
     
     // Método construtor
