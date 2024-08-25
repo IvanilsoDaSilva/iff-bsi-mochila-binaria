@@ -18,6 +18,7 @@ Pseudocódigo
 
 ```text
 INÍCIO
+
     // Classe Item para representar um item com nome, peso e valor
     CLASSE Item
         ATRIBUTOS:
@@ -46,10 +47,11 @@ INÍCIO
             mochila
             criterioDeParadaDoILS
             criterioDeParadaDaBuscaLocal
+            tamanhoMaximoPerturbacao
             random = GERAR_NUMERO_ALEATORIO
-        
+
         MÉTODO CONSTRUTOR:
-            MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal)
+            MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPerturbacao)
         
         // Método para verificar a solução na mochila
         MÉTODO verificarMochila(solucao)
@@ -88,7 +90,7 @@ INÍCIO
         // Método de perturbação para escapar de ótimos locais
         MÉTODO perturbacao(solucao)
             solucaoPerturbada = COPIAR(solucao)
-            tamanhoPerturbacao = GERAR_NUMERO_ALEATORIO(tamanho(solucao) / 2) + 1
+            tamanhoPerturbacao = GERAR_NUMERO_ALEATORIO(tamanhoMaximoPerturbacao) + 1
             PARA i = 0 ATÉ tamanhoPerturbacao FAÇA
                 indice = GERAR_NUMERO_ALEATORIO(tamanho(solucaoPerturbada))
                 solucaoPerturbada[indice] = 1 - solucaoPerturbada[indice]
@@ -149,13 +151,14 @@ INÍCIO
         itens.ADICIONAR(Item("Fone de Ouvido", 1, 6))
 
         // Definição da capacidade da mochila e critérios de parada
-        capacidade = 5
-        criterioDeParadaDoILS = 14
+        capacidade = 6
+        criterioDeParadaDoILS = 100
         criterioDeParadaDaBuscaLocal = 100
+        tamanhoMaximoPerturbacao = 8
 
         // Criação da instância da Mochila e do MetodosILS
         mochila = NOVA_INSTANCIA_Mochila(itens, capacidade)
-        ils = NOVA_INSTANCIA_MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal)
+        ils = NOVA_INSTANCIA_MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPerturbacao)
 
         // Encontrar e exibir a solução final
         solucaoFinal = ils.encontrarSolucao()
@@ -163,6 +166,7 @@ INÍCIO
     FIM_MAIN
 
 FIM
+
 ```
 
 - Classe Item: Representa um item com atributos nome, peso, e valor.
