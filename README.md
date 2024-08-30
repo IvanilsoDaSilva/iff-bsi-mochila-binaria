@@ -212,6 +212,10 @@ FIM
   - encontrarSolucao: Aplica a combinação de busca local e perturbação para encontrar a melhor solução.
   - exibirSolucao: Exibe os itens selecionados na mochila, juntamente com o peso e o valor total.
 - Função INÍCIO_MAIN: Cria a lista de itens, define a capacidade da mochila, os critérios de parada, e executa o algoritmo ILS, exibindo a solução final.
+  - capacidade: Define o peso máximo que a mochila pode carregar. A solução precisa respeitar esse limite para ser válida.
+  - criterioDeParadaDoILS: Estabelece o número máximo de iterações que o algoritmo ILS realizará antes de parar. Isso controla a duração da busca.
+  - criterioDeParadaDaBuscaLocal: Indica quantas iterações de busca local serão realizadas para melhorar a solução atual antes da pertubação. Mais iterações podem refinar a solução.
+  - tamanhoMaximoPertubação: Determina o número máximo de mudanças que podem ser feitas na solução durante a fase de perturbação. Isso ajuda a explorar novas soluções e evitar ficar preso em soluções subótimas.
 
 ### Entrada 
 
