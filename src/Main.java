@@ -13,7 +13,8 @@ public class Main {
     	// Iniciação da mochila com os itensMochila
     	Mochila mochila = new Mochila(arquivo);
     	// Iniciação do ils com a mochila e o criterio de parada
-    	MetodosILS ils = new MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPertubação);
+    	//MetodosILS ils = new MetodosILS(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPertubação);
+    	MetodoILS_Vetor ils = new MetodoILS_Vetor(mochila, criterioDeParadaDoILS, criterioDeParadaDaBuscaLocal, tamanhoMaximoPertubação);
     	// Encontrar e exibir a solução
     	ils.exibirSolucao(ils.encontrarSolucao());
     }
