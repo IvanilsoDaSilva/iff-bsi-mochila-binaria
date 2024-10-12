@@ -6,7 +6,7 @@ import main.java.com.mochilabinaria.Mochila;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-    	File arquivo = new File(System.getProperty("user.dir")+"\\src\\input.txt");
+    	File arquivo = new File(System.getProperty("user.dir")+"\\src\\input1.txt");
       
     	// Parâmetros do ILS
     	int criterioDeParadaDoILS = 2000;

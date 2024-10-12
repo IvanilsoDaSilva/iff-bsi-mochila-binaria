@@ -1,0 +1,4 @@
+{capacidade da mochila}(inteiro)
+{numero de itens a seguir}(inteiro)
+{valor1}(inteiro) {peso1}(inteiro)
+{valor2}(inteiro) {peso2}(inteiro)
