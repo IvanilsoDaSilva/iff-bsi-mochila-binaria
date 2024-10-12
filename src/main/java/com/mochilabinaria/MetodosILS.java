@@ -1,18 +1,20 @@
+package main.java.com.mochilabinaria;
+
 import java.util.*;
 
 public class MetodosILS {
 	private Mochila mochila;
 	private int criterioDeParadaDoILS;
 	private int criterioDeParadaDaBuscaLocal;
-	private int tamanhoMaximoPertubação;
+	private int tamanhoPertubação;
     private Random random = new Random();
     
     // Construtor da classe
-    public MetodosILS(Mochila mochila, int criterioDeParadaDoILS, int criterioDeParadaDaBuscaLocal, int tamanhoMaximoPertubação) {
+    public MetodosILS(Mochila mochila, int criterioDeParadaDoILS, int criterioDeParadaDaBuscaLocal, int tamanhoPertubação) {
     	this.mochila = mochila;
     	this.criterioDeParadaDoILS = criterioDeParadaDoILS;
     	this.criterioDeParadaDaBuscaLocal = criterioDeParadaDaBuscaLocal;
-    	this.tamanhoMaximoPertubação = tamanhoMaximoPertubação;
+    	this.tamanhoPertubação = tamanhoPertubação;
     }
     
 	// Função de avaliação da mochila
@@ -22,8 +24,8 @@ public class MetodosILS {
         
         for (int i = 0; i < solucao.length; i++) {
             if (solucao[i] == 1) {
-                pesoTotal += this.mochila.getItens().get(i).peso;
-                valorTotal += this.mochila.getItens().get(i).valor;
+                pesoTotal += this.mochila.getItens()[i].peso;
+                valorTotal += this.mochila.getItens()[i].valor;
             }
         }
         return pesoTotal <= this.mochila.getCapacidade() ? valorTotal : 0;
@@ -57,9 +59,9 @@ public class MetodosILS {
          * Neste caso de pelo menos um até a metade de 
          * elementos da solução
          */
-        int tamanhoPerturbacao = random.nextInt(tamanhoMaximoPertubação) + 1;
+//        int tamanhoPerturbacao = random.nextInt(tamanhoMaximoPertubação) + 1;
 
-        for (int i = 0; i < tamanhoPerturbacao; i++) {
+        for (int i = 0; i < this.tamanhoPertubação; i++) {
         	/*
         	 * Inverte todos os elementos na faixa do tamanho da
         	 * pertubação
@@ -78,7 +80,7 @@ public class MetodosILS {
     	 * 0 significa que o item não esta na mochila
     	 * 1 significa que o item esta na mochila
     	 */
-        int[] solucaoAtual = new int[this.mochila.getItens().size()];
+        int[] solucaoAtual = new int[this.mochila.getItens().length];
         int[] melhorSolucao = buscaLocal(solucaoAtual);
 
         /*
@@ -89,6 +91,10 @@ public class MetodosILS {
         for (int i = 0; i < criterioDeParadaDoILS; i++) {
             int[] solucaoPerturbada = perturbacao(melhorSolucao);
             int[] novaSolucao = buscaLocal(solucaoPerturbada);
+            
+            if((i*100/criterioDeParadaDoILS) != (i - 1)*100/criterioDeParadaDoILS) {
+          	  System.out.println("Progresso: " + (i*100/criterioDeParadaDoILS) + "%");
+            }
 
             // Criterio de aceitação
             if (verificarMochila(novaSolucao) > verificarMochila(melhorSolucao)) {
@@ -106,7 +112,7 @@ public class MetodosILS {
         System.out.println("Itens na mochila:");
         for (int i = 0; i < solucao.length; i++) {
             if (solucao[i] == 1) {
-                Item item = this.mochila.getItens().get(i);
+                Item item = this.mochila.getItens()[i];
                 System.out.println(item.nome + " (Peso: " + item.peso + ", Valor: " + item.valor + ")");
                 pesoTotal += item.peso;
                 valorTotal += item.valor;
@@ -117,6 +123,6 @@ public class MetodosILS {
         System.out.println("Valor: " + valorTotal);
         System.out.println("Criterio de parada da pertubação: " + criterioDeParadaDoILS);
         System.out.println("Criterio de parada da busca local: " + criterioDeParadaDaBuscaLocal);
-        System.out.println("Tamanho maximo da pertubação: " + tamanhoMaximoPertubação);
+        System.out.println("Tamanho da pertubação: " + tamanhoPertubação);
     }
 }
